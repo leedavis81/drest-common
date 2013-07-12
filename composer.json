@@ -23,8 +23,8 @@
         "psr-0": { "DrestCommon\\": "src/", "DrestCommonTests\\": "tests/"}
     },
     "suggest":{
-        "zendframework/zend-http" : "(~2.1) If using the request / response adapters for Zend\Http",
-        "symfony/http-foundation" : "(~2.0) If using the request / response adapters for Symfony\Component\HttpFoundation",
-        "guzzle/guzzle" : "(~3.6) If using the response adapter for Guzzle\Http"
+        "zendframework/zend-http": "(~2.1) If using the request / response adapters for Zend\\Http",
+        "symfony/http-foundation": "(~2.0) If using the request / response adapters for Symfony\\Component\\HttpFoundation",
+        "guzzle/guzzle": "(~3.6) If using the response adapter for Guzzle\\Http"
     }
 }
