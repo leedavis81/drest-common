@@ -1,7 +1,7 @@
 <?php
 namespace DrestCommon\Response\Adapter;
 
-use Drest\DrestException;
+use DrestCommon\Response\ResponseException;
 class Guzzle extends AdapterAbstract
 {
 	/**
@@ -46,8 +46,8 @@ class Guzzle extends AdapterAbstract
 		}
     }
 
-	/** (non-PHPdoc)
-     * @see Drest\Response\Adapter.AdapterInterface::setHttpHeader()
+	/**
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::setHttpHeader()
      */
     public function setHttpHeader($name, $value = null)
     {
@@ -66,32 +66,31 @@ class Guzzle extends AdapterAbstract
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Drest\Response\Adapter.AdapterInterface::getBody()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getBody()
      */
     public function getBody()
     {
         return $this->getResponse()->getBody(true);
     }
 
-	/** (non-PHPdoc)
-     * @see Drest\Response\Adapter.AdapterInterface::setBody()
+	/**
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::setBody()
      */
     public function setBody($body)
     {
         $this->getResponse()->setBody($body);
     }
 
-	/** (non-PHPdoc)
-     * @see Drest\Response\Adapter.AdapterInterface::getStatusCode()
+	/**
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getStatusCode()
      */
     public function getStatusCode()
     {
         return $this->getResponse()->getStatusCode();
     }
 
-	/** (non-PHPdoc)
-     * @see Drest\Response\Adapter.AdapterInterface::setStatusCode()
+	/**
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::setStatusCode()
      */
     public function setStatusCode($code, $text)
     {

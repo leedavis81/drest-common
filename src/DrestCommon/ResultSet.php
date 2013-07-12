@@ -1,8 +1,6 @@
 <?php
 namespace DrestCommon;
 
-use Drest\DrestException;
-
 /**
  * Drest result set
  * @author Lee
@@ -31,13 +29,13 @@ class ResultSet implements \Iterator
      * Construct a result set instance
      * @param array $data
      * @param string $keyName
-     * @throws DrestException
+     * @throws \Exception
      */
     private function __construct(array $data, $keyName)
     {
         $keyName = preg_replace("/[^a-zA-Z0-9_\s]/", "", $keyName);
         if (!is_string($keyName)) {
-            throw DrestException::invalidParentKeyNameForResults();
+            throw new \Exception('arent key name in a result set object is invalid. Must be an alphanumeric string (underscores allowed)');
         }
         $this->data = $data;
         $this->keyName = $keyName;

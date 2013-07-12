@@ -3,13 +3,13 @@ namespace DrestCommon\Request\Adapter;
 
 use \Zend\Http,
     \Zend\Stdlib\Parameters,
-    Drest\DrestException;
+    DrestCommon\Request\RequestException;
 
 class ZendFramework2 extends AdapterAbstract
 {
 
     /**
-     * @see \Drest\Request\Adapter\AdapterInterface::getAdpatedClassName()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getAdpatedClassName()
      */
     public static function getAdaptedClassName()
     {
@@ -17,19 +17,19 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\AdapterInterface::getHttpMethod()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getHttpMethod()
      */
     public function getHttpMethod()
     {
         $const = 'METHOD_' . $this->getRequest()->getMethod();
         if (!defined('Drest\Request::' . $const)) {
-            throw DrestException::unknownHttpVerb(get_class($this));
+            throw RequestException::unknownHttpVerb(get_class($this));
         }
         return constant('Drest\Request::' . $const);
     }
 
     /**
-     * @see \Drest\Request\Adapter\AdapterInterface::getBody()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getBody()
      */
     public function getBody()
     {
@@ -37,7 +37,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\Request::getCookie()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getCookie()
      */
     public function getCookie($name = null)
     {
@@ -55,7 +55,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\Request::getHeaders()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getHeaders()
      */
     public function getHeaders($name = null)
     {
@@ -69,7 +69,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\Request::getPost()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getPost()
      */
     public function getPost($name = null)
     {
@@ -83,7 +83,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\Request::setPost()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::setPost()
      */
     public function setPost($name, $value = null)
     {
@@ -95,7 +95,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\Request::getQuery()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getQuery()
      */
     public function getQuery($name = null)
     {
@@ -109,7 +109,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\Request::setQuery()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::setQuery()
      */
     public function setQuery($name, $value = null)
     {
@@ -121,13 +121,12 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Request\Adapter\AdapterInterface::getUri()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getUri()
      */
     public function getUri()
     {
         return $this->getRequest()->getUri()->toString();
     }
-
 
     /**
      * ZendFramework 2 Request object

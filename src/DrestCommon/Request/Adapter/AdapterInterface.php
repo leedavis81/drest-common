@@ -1,7 +1,7 @@
 <?php
 namespace DrestCommon\Request\Adapter;
 
-use Drest\DrestException;
+use DrestCommon\Request\RequestException;
 
 interface AdapterInterface
 {
@@ -90,7 +90,7 @@ interface AdapterInterface
     /**
      * Get the HTTP verb used on this request
      * @return string - value should be mapped to a HTTP_METHOD_* class contant
-     * @throws DrestException - if the verb returned is unknown
+     * @throws RequestException - if the verb returned is unknown
      */
     public function getHttpMethod();
 

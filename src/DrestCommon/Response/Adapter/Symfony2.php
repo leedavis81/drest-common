@@ -1,8 +1,6 @@
 <?php
 namespace DrestCommon\Response\Adapter;
 
-use Drest\DrestException;
-
 class Symfony2 extends AdapterAbstract
 {
     /**

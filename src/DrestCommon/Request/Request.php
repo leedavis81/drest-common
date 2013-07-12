@@ -1,8 +1,8 @@
 <?php
 namespace DrestCommon\Request;
 
-use Drest\DrestException;
-use Drest\Request\Adapter;
+use DrestCommon\Request\RequestException;
+use DrestCommon\Request\Adapter;
 
 class Request
 {
@@ -28,15 +28,15 @@ class Request
      * @var array $defaultAdapterClasses
      */
     public static $defaultAdapterClasses = array(
-        'Drest\\Request\\Adapter\\ZendFramework2',
-        'Drest\\Request\\Adapter\\Symfony2'
+        'DrestCommon\\Request\\Adapter\\ZendFramework2',
+        'DrestCommon\\Request\\Adapter\\Symfony2'
     );
 
     /**
      * Construct an instance of Drest Request object
      * @param mixed $request_object preferred router type
      * @param array $adapterClasses - an array of adapter classes available
-     * @throws DrestException
+     * @throws RequestException
      */
     public function __construct($request_object = null, array $adapterClasses = null)
     {
@@ -46,7 +46,7 @@ class Request
         $defaultClass = 'Symfony\Component\HttpFoundation\Request';
         if (is_null($request_object)) {
             if (!class_exists($defaultClass)) {
-                throw DrestException::noRequestObjectDefinedAndCantInstantiateDefaultType($defaultClass);
+                throw RequestException::noRequestObjectDefinedAndCantInstantiateDefaultType($defaultClass);
             }
             // Default to using symfony's request object
             /* @var \Symfony\Component\HttpFoundation\Request $defaultClass */
@@ -63,9 +63,9 @@ class Request
                     }
                 }
             }
-            throw DrestException::unknownAdapterForRequestObject($request_object);
+            throw RequestException::unknownAdapterForRequestObject($request_object);
         } else {
-            throw DrestException::invalidRequestObjectPassed();
+            throw RequestException::invalidRequestObjectPassed();
         }
     }
 
@@ -182,7 +182,7 @@ class Request
     /**
      * Get the HTTP verb used on this request
      * @return string - value should be mapped to a HTTP_METHOD_* class contant
-     * @throws DrestException - if the verb returned is unknown
+     * @throws RequestException - if the verb returned is unknown
      */
     public function getHttpMethod()
     {

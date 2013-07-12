@@ -2,8 +2,8 @@
 namespace DrestCommon\Response;
 
 
-use Drest\DrestException;
-use Drest\Response\Adapter;
+use DrestCommon\Response\ResponseException;
+use DrestCommon\Response\Adapter;
 
 class Response
 {
@@ -146,16 +146,16 @@ class Response
      * @var array $defaultAdapterClasses
      */
     public static $defaultAdapterClasses = array(
-        'Drest\\Response\\Adapter\\ZendFramework2',
-        'Drest\\Response\\Adapter\\Symfony2',
-        'Drest\\Response\\Adapter\\Guzzle'
+        'DrestCommon\\Response\\Adapter\\ZendFramework2',
+        'DrestCommon\\Response\\Adapter\\Symfony2',
+        'DrestCommon\\Response\\Adapter\\Guzzle'
     );
 
     /**
      * Construct an instance of Drest Response object
      * @param mixed $response_object - preferred adapted response type
      * @param array $adapterClasses - an array of adapter classes available
-     * @throws DrestException
+     * @throws ResponseException
      */
     public function __construct($response_object = null, array $adapterClasses = null)
     {
@@ -165,7 +165,7 @@ class Response
         $defaultClass = 'Symfony\Component\HttpFoundation\Response';
         if (is_null($response_object)) {
             if (!class_exists($defaultClass)) {
-                throw DrestException::noResponseObjectDefinedAndCantInstantiateDefaultType($defaultClass);
+                throw ResponseException::noResponseObjectDefinedAndCantInstantiateDefaultType($defaultClass);
             }
             // Default to using symfony's request object
             /* @var \Symfony\Component\HttpFoundation\Response $defaultClass */
@@ -182,9 +182,9 @@ class Response
                     }
                 }
             }
-            throw DrestException::unknownAdapterForResponseObject($response_object);
+            throw ResponseException::unknownAdapterForResponseObject($response_object);
         } else {
-            throw DrestException::invalidResponsetObjectPassed();
+            throw ResponseException::invalidResponseObjectPassed();
         }
     }
 
@@ -249,12 +249,12 @@ class Response
     /**
      * Set the status code
      * @param integer $code - must reflect one of the STATUS_CODE_* constants on this class
-     * @throws DrestException
+     * @throws ResponseException
      */
     public function setStatusCode($code)
     {
         if (!array_key_exists($code, self::$statusPhrases)) {
-            throw DrestException::invalidHttpStatusCode($code);
+            throw ResponseException::invalidHttpStatusCode($code);
         }
         $this->adapter->setStatusCode($code, self::$statusPhrases[$code]);
     }

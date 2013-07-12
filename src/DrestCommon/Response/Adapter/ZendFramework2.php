@@ -1,7 +1,6 @@
 <?php
 namespace DrestCommon\Response\Adapter;
 
-use Drest\DrestException;
 class ZendFramework2 extends AdapterAbstract
 {
 

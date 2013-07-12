@@ -20,7 +20,7 @@ abstract class AdapterAbstract implements AdapterInterface
     }
 
     /**
-     * @see \Drest\Response\Adapter\AdapterInterface::getResponse()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getResponse()
      */
     public function getResponse()
     {
