@@ -3,7 +3,7 @@
 namespace DrestCommon\Representation;
 
 use Drest\DrestException;
-use Drest\Query\ResultSet;
+use DrestCommon\ResultSet;
 use DrestCommon\Request\Request;
 use DrestCommon\Response\Response;
 use Doctrine\Common\Inflector\Inflector;
