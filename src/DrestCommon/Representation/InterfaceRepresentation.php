@@ -1,9 +1,9 @@
 <?php
 namespace DrestCommon\Representation;
 
-use Drest\Query\ResultSet,
-    Drest\Request,
-    Drest\Response;
+use DrestCommon\ResultSet,
+    DrestCommon\Request\Request,
+    DrestCommon\Response\Response;
 
 interface InterfaceRepresentation
 {
@@ -40,7 +40,7 @@ interface InterfaceRepresentation
 	public function getMatchableAcceptHeaders();
 
 	/**
-	 * Return an array of applicable extension valuies that should match this writer. eg 'json', 'jsn'
+	 * Return an array of applicable extension values that should match this writer. eg 'json', 'jsn'
 	 * Exclude the extension dot
 	 * return array
 	 */

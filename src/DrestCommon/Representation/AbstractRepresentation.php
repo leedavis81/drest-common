@@ -2,9 +2,10 @@
 namespace DrestCommon\Representation;
 
 use Drest\Configuration;
+
+use DrestCommon\ResultSet;
+use DrestCommon\Request\Request;
 use DrestCommon\Error\Response as ErrorResponse;
-use Drest\Query\ResultSet;
-use Drest\Request;
 
 abstract class AbstractRepresentation implements InterfaceRepresentation
 {
