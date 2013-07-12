@@ -1,8 +1,8 @@
 <?php
 namespace DrestCommon\Error;
 
-use Drest\Error\Response\ResponseInterface;
-use Drest\Response;
+use DrestCommon\Error\Response\ResponseInterface;
+use DrestCommon\Response\Response;
 
 /**
  *
