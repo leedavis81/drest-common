@@ -1,7 +1,6 @@
 <?php
 namespace DrestCommon\Representation;
 
-use Drest\DrestException;
 use DrestCommon\ResultSet;
 use DrestCommon\Request\Request;
 use DrestCommon\Response\Response;

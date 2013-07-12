@@ -1,15 +1,12 @@
 <?php
 namespace DrestCommon\Representation;
 
-use Drest\Mapping\RouteMetaData;
-use Exception;
-
 /**
  * Base exception class for all Drest exceptions.
  *
  * @author Lee
  */
-class RepresentationException extends Exception
+class RepresentationException extends \Exception
 {
 
     public static function unknownRepresentationClass($class_name)
@@ -42,8 +39,8 @@ class RepresentationException extends Exception
         return new self('Unable to match a representation instance using Configuration::DETECT_CONTENT_* methods set');
     }
 
-    public static function noRepresentationsSetForRoute(RouteMetaData $route)
+    public static function noRepresentationsSetForRoute($name, $className)
     {
-        return new self('No representations have been set for the service "' . $route->getName() . '" for the Entity "' . $route->getClassMetaData()->getClassName() . "'");
+        return new self('No representations have been set for the service "' . $name . '" for the Entity "' . $className . "'");
     }
 }
