@@ -2,9 +2,9 @@
 namespace DrestCommon\Representation;
 
 use Drest\DrestException;
-use Drest\Query\ResultSet;
-use Drest\Request;
-use Drest\Response;
+use DrestCommon\ResultSet;
+use DrestCommon\Request\Request;
+use DrestCommon\Response\Response;
 
 /**
  *
