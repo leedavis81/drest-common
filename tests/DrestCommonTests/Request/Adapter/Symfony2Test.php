@@ -35,6 +35,8 @@ class Symfony2Test extends DrestCommonTestCase
     {
         $request = self::getSymfonyAdapterRequest();
 
+        $this->assertEmpty($request->getCookie());
+
         $cookieName = 'frodo';
         $cookieValue = 'baggins';
 
@@ -44,6 +46,8 @@ class Symfony2Test extends DrestCommonTestCase
         $this->assertNotEmpty($request->getCookie());
         $this->assertCount(1, $request->getCookie());
         $this->assertEquals($cookieValue, $request->getCookie($cookieName));
+
+        $this->assertEquals('', $request->getCookie('notset'));
 
         $newCookies = array('samwise' => 'gamgee', 'peregrin' => 'took');
         $symRequestObject->cookies->replace($newCookies);
@@ -128,6 +132,20 @@ class Symfony2Test extends DrestCommonTestCase
         $varValue4 = 'peanut';
         $request->setQuery($varName4, $varValue4);
         $this->assertCount(3, $request->getParams());
+    }
+
+    /**
+     * @expectedException \DrestCommon\Request\RequestException
+     */
+    public function testUnknownHttpVerb()
+    {
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'CUSTOM'
+        );
+        $request = Request::create($symRequest);
+
+        $request->getHttpMethod();
     }
 
 }

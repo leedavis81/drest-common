@@ -40,5 +40,49 @@ class RequestTest extends DrestCommonTestCase
         // Ensure request object creates a symfony2 request
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Request', $request->getRequest());
     }
+
+    public function testSettingRouteParams()
+    {
+        $request = Request::create();
+        $params = array('name' => 'bilbo', 'address' => 'the shire');
+        $request->setRouteParam($params);
+        $this->assertEquals($params, $request->getRouteParam());
+        $this->assertEquals('bilbo', $request->getRouteParam('name'));
+
+        $request->setRouteParam('name', 'frodo');
+        $this->assertEquals('frodo', $request->getRouteParam('name'));
+    }
+
+    public function testGetPath()
+    {
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET'
+        );
+
+        $request = Request::create($symRequest);
+        $this->assertEquals('/users', $request->getPath());
+    }
+
+    public function testGetPathWithAdditions()
+    {
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users?a=1#t12',
+            'GET'
+        );
+
+        $request = Request::create($symRequest);
+        $this->assertEquals('/users', $request->getPath());
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users#t12',
+            'GET'
+        );
+
+        $request = Request::create($symRequest);
+        $this->assertEquals('/users', $request->getPath());
+    }
+
+
 }
 
