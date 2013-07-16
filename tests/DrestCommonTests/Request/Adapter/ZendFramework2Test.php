@@ -43,6 +43,15 @@ class ZendFramework2Test extends DrestCommonTestCase
         $this->assertNotEmpty($request->getCookie());
         $this->assertCount(1, $request->getCookie());
         $this->assertEquals($cookieValue, $request->getCookie($cookieName));
+
+        $this->assertEquals('', $request->getCookie('notset'));
+
+        $httpString = "GET /foo HTTP/1.1\r\nAccept: */*\r\n";
+
+        $zfRequest = Http\Request::fromString($httpString);
+        $request = Request::create($zfRequest, array('DrestCommon\\Request\\Adapter\\ZendFramework2'));
+        $this->assertEmpty($request->getCookie());
+
     }
 
 
@@ -61,6 +70,10 @@ class ZendFramework2Test extends DrestCommonTestCase
         $newValues = array('samwise' => 'gamgee', 'peregrin' => 'took');
         $request->setPost($newValues);
         $this->assertCount(2, $request->getPost());
+
+        $request->setPost(array());
+        $this->assertCount(0, $request->getPost());
+        $this->assertEquals('', $request->getPost($varName));
     }
 
     public function testCanSaveAndRetrieveQueryVars()
@@ -78,6 +91,10 @@ class ZendFramework2Test extends DrestCommonTestCase
         $newValues = array('samwise' => 'gamgee', 'peregrin' => 'took');
         $request->setQuery($newValues);
         $this->assertCount(2, $request->getQuery());
+
+        $request->setQuery(array());
+        $this->assertCount(0, $request->getQuery());
+        $this->assertEquals('', $request->getQuery($varName));
     }
 
     public function testCanSaveAndRetrieveHeaderVars()
@@ -102,6 +119,8 @@ class ZendFramework2Test extends DrestCommonTestCase
         }
 
         $zf2RequestObject->getHeaders()->clearHeaders();
+        $this->assertEquals('', $request->getHeaders($varName));
+
         if (isset($headers))
         {
             $zf2RequestObject->getHeaders()->addHeaders($headers);
@@ -131,6 +150,16 @@ class ZendFramework2Test extends DrestCommonTestCase
         $varValue4 = 'peanut';
         $request->setQuery($varName4, $varValue4);
         $this->assertCount(3, $request->getParams());
+    }
+
+    public function testCanFetchBody()
+    {
+        $body = '<span>This is the body string</span>';
+        $httpString = "GET /foo HTTP/1.1\r\nAccept: */*\r\n\r\n$body";
+        $zfRequest = Http\Request::fromString($httpString);
+        $request = Request::create($zfRequest, array('DrestCommon\\Request\\Adapter\\ZendFramework2'));
+
+        $this->assertEquals($body, $request->getBody());
     }
 
 }
