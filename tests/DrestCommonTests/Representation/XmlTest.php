@@ -2,6 +2,7 @@
 namespace DrestTests\Representation;
 
 use DrestCommon\Representation\Xml;
+use DrestCommon\Request\Request;
 use DrestCommon\ResultSet;
 use DrestCommonTests\DrestCommonTestCase;
 
@@ -88,6 +89,76 @@ class XmlTest extends DrestCommonTestCase
         $this->assertInstanceOf('DrestCommon\Representation\Xml', $representation);
 
         $this->assertEquals($this->getXmlArray(), $representation->toArray());
+    }
+
+    public function testIsExpectedContentFromExtension()
+    {
+        $representation = Xml::createFromString($this->getXmlString());
+
+        $symRequest1 = \Symfony\Component\HttpFoundation\Request::create(
+            '/users.xml',
+            'GET'
+        );
+        $request1 = Request::create($symRequest1);
+        $this->assertTrue($representation->isExpectedContent(array('Extension' => true), $request1));
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET'
+        );
+        $request2 = Request::create($symRequest);
+        $this->assertFalse($representation->isExpectedContent(array('Extension' => true), $request2));
+    }
+
+    public function testIsExpectedContentFromHeader()
+    {
+        $representation = Xml::createFromString($this->getXmlString());
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET',
+            array(),
+            array(),
+            array(),
+            array('HTTP_ACCEPT' => $representation->getContentType())
+        );
+
+        $request1 = Request::create($symRequest);
+        $this->assertTrue($representation->isExpectedContent(array('Header' => 'Accept'), $request1));
+
+        // By default sym requests are created with accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET',
+            array(),
+            array(),
+            array(),
+            array('HTTP_ACCEPT' => '')
+        );
+
+        $request2 = Request::create($symRequest);
+        $this->assertFalse($representation->isExpectedContent(array('Header' => 'Accept'), $request2));
+    }
+
+    public function testIsExpectedContentFromParams()
+    {
+        $representation = Xml::createFromString($this->getXmlString());
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET',
+            array('format' => 'xml')
+        );
+        $request1 = Request::create($symRequest);
+        $this->assertTrue($representation->isExpectedContent(array('Parameter' => 'format'), $request1));
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET'
+        );
+
+        $request2 = Request::create($symRequest);
+        $this->assertFalse($representation->isExpectedContent(array('Parameter' => 'format'), $request2));
     }
 
 }
