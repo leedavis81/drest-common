@@ -60,4 +60,26 @@ class JsonTest extends DrestCommonTestCase
 
         $this->assertEquals($this->getJsonArray(), $representation->toArray());
     }
+
+    public function testJsonRepCanBeUpdated()
+    {
+        $representation = Json::createFromString($this->getJsonString());
+
+        $obj = new \StdClass();
+        $obj->username = 'billybob';
+        $obj->email_address = 'billybob@somewhere.com';
+        $obj->phone_numbers = array('02045485658', '02096589654');
+        $representation->update($obj);
+
+        $exp = '{"stdclass":{"username":"billybob","email_address":"billybob@somewhere.com","phone_numbers":["02045485658","02096589654"]}}';
+
+        $this->assertEquals($exp, $representation->__toString());
+    }
+
+    public function testGetDefaultErrorResponseObject()
+    {
+        $representation = Json::createFromString($this->getJsonString());
+        $errorResp = $representation->getDefaultErrorResponse();
+        $this->assertInstanceOf('DrestCommon\Error\Response\ResponseInterface', $errorResp);
+    }
 }

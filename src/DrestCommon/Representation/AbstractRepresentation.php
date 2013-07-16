@@ -21,7 +21,7 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
 
     /**
      * Get the default error response object associated with this representation.
-     * @return ErrorResponse\ResponseInterface $response
+     * @return \DrestCommon\Error\Response\ResponseInterface $response
      */
     public function getDefaultErrorResponse()
     {

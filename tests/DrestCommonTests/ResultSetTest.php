@@ -79,6 +79,10 @@ class ResultSetTest extends DrestCommonTestCase
         $resultSet[] = 'part4';
         $this->assertCount(4, $resultSet);
         $this->assertTrue(($resultSet[3] == 'part4'));
+
+        $resultSet[1] = 'newpart2';
+        $this->assertCount(4, $resultSet);
+        $this->assertTrue(($resultSet[1] == 'newpart2'));
     }
 
     public function testResultSetOffsetExists()
