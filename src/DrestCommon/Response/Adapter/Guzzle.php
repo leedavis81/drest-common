@@ -5,7 +5,7 @@ use DrestCommon\Response\ResponseException;
 class Guzzle extends AdapterAbstract
 {
 	/**
-     * @see \Drest\Response\Adapter\AdapterInterface::__toString()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::__toString()
      */
     public function toString()
     {
@@ -13,7 +13,7 @@ class Guzzle extends AdapterAbstract
     }
 
 	/**
-     * @see \Drest\Response\Adapter\AdapterInterface::getAdpatedClassName()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getAdpatedClassName()
      */
     public static function getAdaptedClassName()
     {
@@ -21,7 +21,7 @@ class Guzzle extends AdapterAbstract
     }
 
 	/**
-     * @see Drest\Response\Adapter\AdapterInterface::getHttpHeader()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getHttpHeader()
      */
     public function getHttpHeader($name = null)
     {

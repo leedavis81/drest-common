@@ -26,7 +26,7 @@ abstract class AdapterAbstract implements AdapterInterface
 	}
 
 	/**
-	 * @see \Drest\Request\Adapter\AdapterInterface::getParams()
+	 * @see \DrestCommon\Request\Adapter\AdapterInterface::getParams()
 	 */
 	public function getParams($name = null)
 	{
@@ -39,7 +39,7 @@ abstract class AdapterAbstract implements AdapterInterface
 	}
 
 	/**
-	 * @see \Drest\Request\Adapter\AdapterInterface::setRouteParam()
+	 * @see \DrestCommon\Request\Adapter\AdapterInterface::setRouteParam()
 	 */
 	public function setRouteParam($name, $value = null)
 	{
@@ -53,7 +53,7 @@ abstract class AdapterAbstract implements AdapterInterface
 	}
 
 	/**
-	 * @see \Drest\Request\Adapter\AdapterInterface::getRouteParam()
+	 * @see \DrestCommon\Request\Adapter\AdapterInterface::getRouteParam()
 	 */
 	public function getRouteParam($name = null)
 	{
@@ -65,7 +65,7 @@ abstract class AdapterAbstract implements AdapterInterface
 	}
 
 	/**
-	 * @see \Drest\Request\Adapter\AdapterInterface::getPath()
+	 * @see \DrestCommon\Request\Adapter\AdapterInterface::getPath()
 	 */
 	public function getPath()
 	{
@@ -75,7 +75,7 @@ abstract class AdapterAbstract implements AdapterInterface
 	}
 
     /**
-     * @see \Drest\Request\Adapter\AdapterInterface::getUrl()
+     * @see \DrestCommon\Request\Adapter\AdapterInterface::getUrl()
      */
 	public function getUrl()
 	{
@@ -83,7 +83,7 @@ abstract class AdapterAbstract implements AdapterInterface
 	}
 
 	/**
-	 * @see \Drest\Request\Adapter\AdapterInterface::getExtension()
+	 * @see \DrestCommon\Request\Adapter\AdapterInterface::getExtension()
 	 */
 	public function getExtension()
 	{

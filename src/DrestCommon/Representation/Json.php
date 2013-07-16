@@ -21,7 +21,7 @@ class Json extends AbstractRepresentation
     protected $defaultErrorResponseClass = 'Drest\\Error\\Response\\Json';
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::write()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::write()
      */
     public function write(ResultSet $data)
     {
@@ -29,7 +29,7 @@ class Json extends AbstractRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::toArray()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::toArray()
      */
     public function toArray($includeKey = true)
     {
@@ -45,7 +45,7 @@ class Json extends AbstractRepresentation
     }
 
     /**
-     * @see Drest\Representation\InterfaceRepresentation::createFromString($string)
+     * @see \DrestCommon\Representation\InterfaceRepresentation::createFromString($string)
      */
     public static function createFromString($string)
     {
@@ -64,7 +64,7 @@ class Json extends AbstractRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::getMatchableAcceptHeaders()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::getMatchableAcceptHeaders()
      */
     public function getMatchableAcceptHeaders()
     {
@@ -78,7 +78,7 @@ class Json extends AbstractRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::getMatchableExtensions()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::getMatchableExtensions()
      */
     public function getMatchableExtensions()
     {
@@ -88,7 +88,7 @@ class Json extends AbstractRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::getMatchableFormatParams()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::getMatchableFormatParams()
      */
     public function getMatchableFormatParams()
     {

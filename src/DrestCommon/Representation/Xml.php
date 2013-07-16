@@ -93,7 +93,7 @@ class Xml extends AbstractRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::createFromString($string)
+     * @see \DrestCommon\Representation\InterfaceRepresentation::createFromString($string)
      */
     public static function createFromString($string)
     {

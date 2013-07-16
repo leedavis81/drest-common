@@ -5,7 +5,7 @@ class ZendFramework2 extends AdapterAbstract
 {
 
 	/**
-     * @see \Drest\Response\Adapter\AdapterInterface::__toString()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::__toString()
      */
     public function toString()
     {
@@ -14,7 +14,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
 	/**
-     * @see \Drest\Response\Adapter\AdapterInterface::getAdpatedClassName()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getAdpatedClassName()
      */
     public static function getAdaptedClassName()
     {
@@ -22,7 +22,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
 	/**
-     * @see \Drest\Response\Adapter\AdapterInterface::getHttpHeader()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getHttpHeader()
      */
     public function getHttpHeader($name = null)
     {
@@ -34,7 +34,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
 	/**
-     * @see \Drest\Response\Adapter\AdapterInterface::setHttpHeader()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::setHttpHeader()
      */
     public function setHttpHeader($name, $value = null)
     {
@@ -49,7 +49,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
     /**
-     * @see \Drest\Response\Adapter\AdapterInterface::getBody()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getBody()
      */
     public function getBody()
     {
@@ -57,7 +57,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
 	/**
-     * @see \Drest\Response\Adapter.AdapterInterface::setBody()
+     * @see \DrestCommon\Response\Adapter.AdapterInterface::setBody()
      */
     public function setBody($body)
     {
@@ -65,7 +65,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
 	/**
-     * @see Drest\Response\Adapter\AdapterInterface::getStatusCode()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::getStatusCode()
      */
     public function getStatusCode()
     {
@@ -73,7 +73,7 @@ class ZendFramework2 extends AdapterAbstract
     }
 
 	/**
-     * @see Drest\Response\Adapter\AdapterInterface::setStatusCode()
+     * @see \DrestCommon\Response\Adapter\AdapterInterface::setStatusCode()
      */
     public function setStatusCode($code, $text)
     {

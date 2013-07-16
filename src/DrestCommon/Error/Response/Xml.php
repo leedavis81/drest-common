@@ -15,7 +15,7 @@ class Xml implements ResponseInterface
     public $message;
 
     /**
-     * @see Drest\Error\Response.ResponseInterface::setMessage()
+     * @see \DrestCommon\Error\Response\ResponseInterface::setMessage()
      */
     public function setMessage($message)
     {
@@ -31,7 +31,7 @@ class Xml implements ResponseInterface
     }
 
     /**
-     * @see \Drest\Error\Response\ResponseInterface::render()
+     * @see \DrestCommon\Error\Response\ResponseInterface::render()
      */
     public function render()
     {
@@ -48,7 +48,7 @@ class Xml implements ResponseInterface
     }
 
     /**
-     * @see \Drest\Error\Response\ResponseInterface::getContentType()
+     * @see \DrestCommon\Error\Response\ResponseInterface::getContentType()
      */
     public static function getContentType()
     {

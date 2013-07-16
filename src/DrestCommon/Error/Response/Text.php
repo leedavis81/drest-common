@@ -14,8 +14,7 @@ class Text implements ResponseInterface
     public $message;
 
     /**
-     * (non-PHPdoc)
-     * @see Drest\Error\Response.ResponseInterface::setMessage()
+     * @see \DrestCommon\Error\Response.ResponseInterface::setMessage()
      */
     public function setMessage($message)
     {
@@ -31,7 +30,7 @@ class Text implements ResponseInterface
     }
 
     /**
-     * @see \Drest\Error\Response\ResponseInterface::render()
+     * @see \DrestCommon\Error\Response\ResponseInterface::render()
      */
     public function render()
     {
@@ -39,7 +38,7 @@ class Text implements ResponseInterface
     }
 
     /**
-     * @see \Drest\Error\Response\ResponseInterface::getContentType()
+     * @see \DrestCommon\Error\Response\ResponseInterface::getContentType()
      */
     public static function getContentType()
     {

@@ -20,10 +20,10 @@ class Symfony2 extends AdapterAbstract
     public function getHttpMethod()
     {
         $const = 'METHOD_' . $this->getRequest()->getMethod();
-        if (!defined('Drest\Request::' . $const)) {
+        if (!defined('DrestCommon\Request\Request::' . $const)) {
             throw RequestException::unknownHttpVerb(get_class($this));
         }
-        return constant('Drest\Request::' . $const);
+        return constant('DrestCommon\Request\Request::' . $const);
     }
 
     /**

@@ -102,7 +102,7 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::__toString()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::__toString()
      */
     public function __toString()
     {
@@ -110,7 +110,7 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
     }
 
     /**
-     * @see \Drest\Representation\InterfaceRepresentation::output()
+     * @see \DrestCommon\Representation\InterfaceRepresentation::output()
      */
     public function output(ResultSet $data)
     {
