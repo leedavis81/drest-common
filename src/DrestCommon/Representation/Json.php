@@ -18,7 +18,7 @@ class Json extends AbstractRepresentation
      * default error response document when handling an error
      * @var string $defaultErrorResponseClass
      */
-    protected $defaultErrorResponseClass = 'Drest\\Error\\Response\\Json';
+    protected $defaultErrorResponseClass = 'DrestCommon\\Error\\Response\\Json';
 
     /**
      * @see \DrestCommon\Representation\InterfaceRepresentation::write()

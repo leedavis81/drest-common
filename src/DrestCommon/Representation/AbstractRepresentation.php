@@ -17,7 +17,7 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
      * Error response document to be used. Can be overwritten from class extension
      * @var string
      */
-    protected $defaultErrorResponseClass = 'Drest\\Error\\Response\\Text';
+    protected $defaultErrorResponseClass = 'DrestCommon\\Error\\Response\\Text';
 
     /**
      * Get the default error response object associated with this representation.

@@ -14,7 +14,7 @@ use DrestCommon\ResultSet;
 class Xml extends AbstractRepresentation
 {
 
-    protected $defaultErrorResponseClass = 'Drest\\Error\\Response\\Xml';
+    protected $defaultErrorResponseClass = 'DrestCommon\\Error\\Response\\Xml';
 
     /**
      * DOM document
