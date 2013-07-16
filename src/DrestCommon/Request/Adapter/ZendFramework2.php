@@ -1,9 +1,9 @@
 <?php
 namespace DrestCommon\Request\Adapter;
 
-use \Zend\Http,
-    \Zend\Stdlib\Parameters,
-    DrestCommon\Request\RequestException;
+use DrestCommon\Request\RequestException;
+use Zend\Http;
+use Zend\Stdlib\Parameters;
 
 class ZendFramework2 extends AdapterAbstract
 {

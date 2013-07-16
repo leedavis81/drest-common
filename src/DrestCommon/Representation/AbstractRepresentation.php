@@ -1,9 +1,9 @@
 <?php
 namespace DrestCommon\Representation;
 
-use DrestCommon\ResultSet;
-use DrestCommon\Request\Request;
 use DrestCommon\Error\Response as ErrorResponse;
+use DrestCommon\Request\Request;
+use DrestCommon\ResultSet;
 
 abstract class AbstractRepresentation implements InterfaceRepresentation
 {

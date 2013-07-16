@@ -1,9 +1,9 @@
 <?php
 namespace DrestCommon\Representation;
 
-use DrestCommon\ResultSet;
 use DrestCommon\Request\Request;
 use DrestCommon\Response\Response;
+use DrestCommon\ResultSet;
 
 /**
  *

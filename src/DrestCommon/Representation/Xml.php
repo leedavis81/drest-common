@@ -2,10 +2,10 @@
 
 namespace DrestCommon\Representation;
 
-use DrestCommon\ResultSet;
+use Doctrine\Common\Inflector\Inflector;
 use DrestCommon\Request\Request;
 use DrestCommon\Response\Response;
-use Doctrine\Common\Inflector\Inflector;
+use DrestCommon\ResultSet;
 
 /**
  * XML Conversion inspired from http://www.lalit.org/lab/convert-php-array-to-xml-with-attributes

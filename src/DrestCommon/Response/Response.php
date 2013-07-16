@@ -2,8 +2,8 @@
 namespace DrestCommon\Response;
 
 
-use DrestCommon\Response\ResponseException;
 use DrestCommon\Response\Adapter;
+use DrestCommon\Response\ResponseException;
 
 class Response
 {

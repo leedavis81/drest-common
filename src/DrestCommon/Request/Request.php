@@ -1,8 +1,8 @@
 <?php
 namespace DrestCommon\Request;
 
-use DrestCommon\Request\RequestException;
 use DrestCommon\Request\Adapter;
+use DrestCommon\Request\RequestException;
 
 class Request
 {
