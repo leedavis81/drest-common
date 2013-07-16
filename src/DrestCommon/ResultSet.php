@@ -5,14 +5,8 @@ namespace DrestCommon;
  * Drest result set
  * @author Lee
  */
-class ResultSet implements \Iterator
+class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
 {
-    /**
-     * Current iteration position
-     * @var integer $position
-     */
-    private $position = 0;
-
     /**
      * Data - immutable and injected on construction
      * @var array $data
@@ -39,8 +33,6 @@ class ResultSet implements \Iterator
         }
         $this->data = $data;
         $this->keyName = $keyName;
-
-        $this->position = 0;
     }
 
     /**
@@ -52,31 +44,6 @@ class ResultSet implements \Iterator
         return array($this->keyName => $this->data);
     }
 
-    public function current()
-    {
-        return $this->data[$this->position];
-    }
-
-    public function key()
-    {
-        return $this->position;
-    }
-
-    public function next()
-    {
-        ++$this->position;
-    }
-
-    public function rewind()
-    {
-        $this->position = 0;
-    }
-
-    public function valid()
-    {
-        return isset($this->data[$this->position]);
-    }
-
     /**
      * Create an instance of a results set object
      * @param array $data
@@ -86,5 +53,71 @@ class ResultSet implements \Iterator
     public static function create($data, $keyName)
     {
         return new self($data, $keyName);
+    }
+
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->data);
+    }
+
+    /**
+     * @param mixed $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->data[$offset]);
+    }
+
+    /**
+     * @param mixed $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        if (isset($this->data[$offset])) {
+            return $this->data[$offset];
+        }
+        return null;
+    }
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @return bool
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ( !isset($offset)) {
+            $this->data[] = $value;
+            return true;
+        }
+        return $this->data[$offset] = $value;
+    }
+
+    /**
+     * @param mixed $offset
+     * @return mixed
+     */
+    public function offsetUnset($offset)
+    {
+        if (isset($this->data[$offset])) {
+            $removed = $this->data[$offset];
+            unset($this->data[$offset]);
+            return $removed;
+        }
+        return null;
     }
 }
