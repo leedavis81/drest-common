@@ -4,6 +4,7 @@ namespace DrestTests\Representation;
 use DrestCommon\ResultSet;
 use DrestCommon\Representation\Json;
 use DrestCommonTests\DrestCommonTestCase;
+use DrestCommon\Request\Request;
 
 class JsonTest extends DrestCommonTestCase
 {
@@ -82,4 +83,70 @@ class JsonTest extends DrestCommonTestCase
         $errorResp = $representation->getDefaultErrorResponse();
         $this->assertInstanceOf('DrestCommon\Error\Response\ResponseInterface', $errorResp);
     }
+
+    public function testIsExpectedContentFromExtension()
+    {
+        $representation = Json::createFromString($this->getJsonString());
+
+        $symRequest1 = \Symfony\Component\HttpFoundation\Request::create(
+            '/users.json',
+            'GET'
+        );
+        $request1 = Request::create($symRequest1);
+        $this->assertTrue($representation->isExpectedContent(array('Extension' => true), $request1));
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET'
+        );
+        $request2 = Request::create($symRequest);
+        $this->assertFalse($representation->isExpectedContent(array('Extension' => true), $request2));
+    }
+
+    public function testIsExpectedContentFromHeader()
+    {
+        $representation = Json::createFromString($this->getJsonString());
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET',
+            array(),
+            array(),
+            array(),
+            array('HTTP_ACCEPT' => $representation->getContentType())
+        );
+
+        $request1 = Request::create($symRequest);
+        $this->assertTrue($representation->isExpectedContent(array('Header' => 'Accept'), $request1));
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET'
+        );
+
+        $request2 = Request::create($symRequest);
+        $this->assertFalse($representation->isExpectedContent(array('Header' => 'Accept'), $request2));
+    }
+
+    public function testIsExpectedContentFromParams()
+    {
+        $representation = Json::createFromString($this->getJsonString());
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET',
+            array('format' => 'json')
+        );
+        $request1 = Request::create($symRequest);
+        $this->assertTrue($representation->isExpectedContent(array('Parameter' => 'format'), $request1));
+
+        $symRequest = \Symfony\Component\HttpFoundation\Request::create(
+            '/users',
+            'GET'
+        );
+
+        $request2 = Request::create($symRequest);
+        $this->assertFalse($representation->isExpectedContent(array('Parameter' => 'format'), $request2));
+    }
+
 }

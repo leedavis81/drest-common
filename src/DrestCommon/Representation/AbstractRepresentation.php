@@ -71,7 +71,7 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
     {
         foreach ($configOptions as $detectContentOption => $detectContentValue) {
             switch ($detectContentOption) {
-                case 'Accept Header':
+                case 'Header':
                     $headers = explode(',', $request->getHeaders($detectContentValue));
                     foreach ($headers as $headerEntry) {
                         if (false !== ($pos = strpos($headerEntry, ';'))) {

@@ -33,6 +33,7 @@ class GuzzleTest extends DrestCommonTestCase
 
         $response->setHttpHeader($varName, $varValue);
 
+        $this->assertNull($response->getHttpHeader('madeupheader'));
         $this->assertNotEmpty($response->getHttpHeader($varName));
         $this->assertCount(1, $response->getHttpHeader());
         $this->assertEquals($varValue, $response->getHttpHeader($varName));

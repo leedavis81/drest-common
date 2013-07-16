@@ -66,6 +66,8 @@ class ResultSetTest extends DrestCommonTestCase
         $partsArray = array('part1', 'part2', 'part3');
         $resultSet = ResultSet::create($partsArray, 'parts');
 
+        unset($resultSet[999]);
+
         unset($resultSet[0]);
         $this->assertCount(2, $resultSet);
         $this->assertFalse(($resultSet[0] == 'part1'));
