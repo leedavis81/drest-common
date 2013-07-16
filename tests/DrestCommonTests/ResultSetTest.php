@@ -53,5 +53,41 @@ class ResultSetTest extends DrestCommonTestCase
         $this->assertEquals($partsArray[1], next($rsIterator));
     }
 
+    public function testResultSetCountable()
+    {
+        $partsArray = array('part1', 'part2', 'part3');
+        $resultSet = ResultSet::create($partsArray, 'parts');
 
+        $this->assertCount(3, $resultSet);
+    }
+
+    public function testResultSetUnset()
+    {
+        $partsArray = array('part1', 'part2', 'part3');
+        $resultSet = ResultSet::create($partsArray, 'parts');
+
+        unset($resultSet[0]);
+        $this->assertCount(2, $resultSet);
+        $this->assertFalse(($resultSet[0] == 'part1'));
+    }
+
+    public function testResultSetSet()
+    {
+        $partsArray = array('part1', 'part2', 'part3');
+        $resultSet = ResultSet::create($partsArray, 'parts');
+
+        $resultSet[] = 'part4';
+        $this->assertCount(4, $resultSet);
+        $this->assertTrue(($resultSet[3] == 'part4'));
+    }
+
+    public function testResultSetOffsetExists()
+    {
+        $partsArray = array('a' => 'part1', 'b' => 'part2', 'c' => 'part3');
+        $resultSet = ResultSet::create($partsArray, 'parts');
+
+        $this->assertEquals('part2', $resultSet['b']);
+
+        $this->assertTrue(isset($resultSet['a']));
+    }
 }
