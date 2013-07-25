@@ -93,14 +93,14 @@ class JsonTest extends DrestCommonTestCase
             'GET'
         );
         $request1 = Request::create($symRequest1);
-        $this->assertTrue($representation->isExpectedContent(array('Extension' => true), $request1));
+        $this->assertTrue($representation->isExpectedContent(array(2 => true), $request1));
 
         $symRequest = \Symfony\Component\HttpFoundation\Request::create(
             '/users',
             'GET'
         );
         $request2 = Request::create($symRequest);
-        $this->assertFalse($representation->isExpectedContent(array('Extension' => true), $request2));
+        $this->assertFalse($representation->isExpectedContent(array(2 => true), $request2));
     }
 
     public function testIsExpectedContentFromHeader()
@@ -117,7 +117,7 @@ class JsonTest extends DrestCommonTestCase
         );
 
         $request1 = Request::create($symRequest);
-        $this->assertTrue($representation->isExpectedContent(array('Header' => 'Accept'), $request1));
+        $this->assertTrue($representation->isExpectedContent(array(1 => 'Accept'), $request1));
 
         $symRequest = \Symfony\Component\HttpFoundation\Request::create(
             '/users',
@@ -125,7 +125,7 @@ class JsonTest extends DrestCommonTestCase
         );
 
         $request2 = Request::create($symRequest);
-        $this->assertFalse($representation->isExpectedContent(array('Header' => 'Accept'), $request2));
+        $this->assertFalse($representation->isExpectedContent(array(1 => 'Accept'), $request2));
     }
 
     public function testIsExpectedContentFromParams()
@@ -138,7 +138,7 @@ class JsonTest extends DrestCommonTestCase
             array('format' => 'json')
         );
         $request1 = Request::create($symRequest);
-        $this->assertTrue($representation->isExpectedContent(array('Parameter' => 'format'), $request1));
+        $this->assertTrue($representation->isExpectedContent(array(3 => 'format'), $request1));
 
         $symRequest = \Symfony\Component\HttpFoundation\Request::create(
             '/users',
@@ -146,7 +146,7 @@ class JsonTest extends DrestCommonTestCase
         );
 
         $request2 = Request::create($symRequest);
-        $this->assertFalse($representation->isExpectedContent(array('Parameter' => 'format'), $request2));
+        $this->assertFalse($representation->isExpectedContent(array(3 => 'format'), $request2));
     }
 
 }

@@ -71,7 +71,7 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
     {
         foreach ($configOptions as $detectContentOption => $detectContentValue) {
             switch ($detectContentOption) {
-                case 1:
+                case 1:  // HTTP Header
                     $headers = explode(',', $request->getHeaders($detectContentValue));
                     foreach ($headers as $headerEntry) {
                         if (false !== ($pos = strpos($headerEntry, ';'))) {
@@ -83,14 +83,14 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
                         }
                     }
                     break;
-                case 2:
+                case 2:  // Extension
                     // See if an extension has been supplied
                     $ext = $request->getExtension();
                     if (!empty($ext) && in_array($request->getExtension(), $this->getMatchableExtensions())) {
                         return true;
                     }
                     break;
-                case 3:
+                case 3:  // Parameter
                     // Inspect the request object for a "format" parameter
                     if (in_array($request->getQuery($detectContentValue), $this->getMatchableFormatParams())) {
                         return true;
