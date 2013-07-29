@@ -1,6 +1,7 @@
 <?php
 namespace DrestTests\Representation;
 
+use DrestCommon\Representation\Json;
 use DrestCommon\Representation\Xml;
 use DrestCommon\Request\Request;
 use DrestCommon\ResultSet;
@@ -159,6 +160,28 @@ class XmlTest extends DrestCommonTestCase
 
         $request2 = Request::create($symRequest);
         $this->assertFalse($representation->isExpectedContent(array(3 => 'format'), $request2));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testInvalidTagName()
+    {
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <1>leedavis81</1>
+  <email_address>lee.davis@somewhere.com</email_address>
+</user>';
+        $representation = Xml::createFromString($xml);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testToArrayWithNoData()
+    {
+        $rep = new Json();
+        $rep->toArray();
     }
 
 }
