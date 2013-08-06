@@ -1,5 +1,5 @@
 <?php
-namespace DrestTests\Request\Adapter;
+namespace DrestCommonTests\Request\Adapter;
 
 use DrestCommonTests\DrestCommonTestCase,
     DrestCommon\Request\Request,

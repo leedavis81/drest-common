@@ -1,11 +1,12 @@
 <?php
-namespace DrestTests\Representation;
+namespace DrestCommonTests\Representation;
 
 use DrestCommon\Representation\Json;
 use DrestCommon\Representation\Xml;
 use DrestCommon\Request\Request;
 use DrestCommon\ResultSet;
 use DrestCommonTests\DrestCommonTestCase;
+
 
 class XmlTest extends DrestCommonTestCase
 {
@@ -180,8 +181,65 @@ class XmlTest extends DrestCommonTestCase
      */
     public function testToArrayWithNoData()
     {
-        $rep = new Json();
+        $rep = new Xml();
         $rep->toArray();
     }
 
+    public function testDataWithDateTimeObject()
+    {
+        $dts = '2013-08-05T14:12:46+0100';
+        $date = new \DateTime($dts);
+        $data = array('date' => $date);
+
+        $resp = '<?xml version="1.0" encoding="UTF-8"?><user><date>' . $dts . '</date></user>';
+
+        $representation = new Xml();
+        $representation->write(ResultSet::create($data, 'user'));
+
+        $this->assertEquals($this->removeXmlFormatting($resp), $this->removeXmlFormatting($representation->__toString()));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testDataWithClosure()
+    {
+        $data = array('closure' => function(){});
+        $representation = new Xml();
+        $representation->write(ResultSet::create($data, 'user'));
+    }
+
+
+    public function testDataWithToStringObject()
+    {
+        $obj = new ToStringClass();
+        $data = array('obj' => $obj);
+        $resp = '<?xml version="1.0" encoding="UTF-8"?><user><obj>' . $obj->__toString() . '</obj></user>';
+
+        $representation = new Xml();
+        $representation->write(ResultSet::create($data, 'user'));
+
+        $this->assertEquals($this->removeXmlFormatting($resp), $this->removeXmlFormatting($representation->__toString()));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testDataWithNoToStringObject()
+    {
+        $obj = new \StdClass();
+        $data = array('obj' => $obj);
+
+        $representation = new Xml();
+        $representation->write(ResultSet::create($data, 'user'));
+    }
+
+}
+
+class ToStringClass
+{
+    public function __toString()
+    {
+        return 'string representation';
+    }
 }

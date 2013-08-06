@@ -1,5 +1,5 @@
 <?php
-namespace DrestTests;
+namespace DrestCommonTests;
 
 
 use DrestCommon\ResultSet;

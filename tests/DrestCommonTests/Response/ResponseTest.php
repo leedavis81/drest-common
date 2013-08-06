@@ -1,5 +1,5 @@
 <?php
-namespace DrestTests\Response;
+namespace DrestCommonTests\Response;
 
 
 use DrestCommon\Response\Response;

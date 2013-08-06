@@ -1,5 +1,5 @@
 <?php
-namespace DrestTests\Representation;
+namespace DrestCommonTests\Representation;
 
 use DrestCommon\ResultSet;
 use DrestCommon\Representation\Json;
@@ -147,6 +147,66 @@ class JsonTest extends DrestCommonTestCase
 
         $request2 = Request::create($symRequest);
         $this->assertFalse($representation->isExpectedContent(array(3 => 'format'), $request2));
+    }
+
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testToArrayWithNoData()
+    {
+        $rep = new Json();
+        $rep->toArray();
+    }
+
+    public function testDataWithDateTimeObject()
+    {
+        $dts = '2013-08-05T14:12:46+0100';
+        $date = new \DateTime($dts);
+        $data = array('date' => $date);
+
+        $resp = '{"user":{"date":"' . $dts . '"}}';
+
+        $representation = new Json();
+        $representation->write(ResultSet::create($data, 'user'));
+
+        $this->assertEquals($resp, $representation->__toString());
+    }
+
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testDataWithClosure()
+    {
+        $data = array('closure' => function(){});
+        $representation = new Json();
+        $representation->write(ResultSet::create($data, 'user'));
+    }
+
+
+    public function testDataWithToStringObject()
+    {
+        $obj = new ToStringClass();
+        $data = array('obj' => $obj);
+        $resp = '{"user":{"obj":"' . $obj->__toString() . '"}}';
+
+        $representation = new Json();
+        $representation->write(ResultSet::create($data, 'user'));
+
+        $this->assertEquals($resp, $representation->__toString());
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testDataWithNoToStringObject()
+    {
+        $obj = new \StdClass();
+        $data = array('obj' => $obj);
+
+        $representation = new Json();
+        $representation->write(ResultSet::create($data, 'user'));
     }
 
 }

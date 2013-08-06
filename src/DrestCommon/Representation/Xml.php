@@ -56,6 +56,12 @@ class Xml extends AbstractRepresentation
 
         $node = $this->xml->createElement($root_node);
 
+        if (is_scalar($data))
+        {
+            $node->appendChild($this->xml->createTextNode($this->bool2str($data)));
+            return $node;
+        }
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $this->current_node_name = $root_node;
@@ -63,11 +69,24 @@ class Xml extends AbstractRepresentation
                 $node->appendChild($this->convertArrayToXml($key, $value));
                 unset($data[$key]);
             }
-        } else {
-            $node->appendChild($this->xml->createTextNode($this->bool2str($data)));
+            return $node;
         }
 
-        return $node;
+        if (is_object($data))
+        {
+            // Catch toString objects, and datetime. Note Closure's will fall into here
+            if (method_exists($data, '__toString'))
+            {
+                $node->appendChild($this->xml->createTextNode($data->__toString()));
+                return $node;
+            } elseif ($data instanceof \DateTime)
+            {
+                $node->appendChild($this->xml->createTextNode($data->format(\DateTime::ISO8601)));
+                return $node;
+            }
+        }
+
+        throw new \Exception('Invalid data type used in Array to XML conversion. Must be a scalar, array or object of \DateTime or that implements __toString()');
     }
 
     /**

@@ -25,7 +25,34 @@ class Json extends AbstractRepresentation
      */
     public function write(ResultSet $data)
     {
-        $this->data = json_encode($data->toArray());
+        $dataArray = $data->toArray();
+        $this->formatData($dataArray);
+        $this->data = json_encode($dataArray);
+    }
+
+    protected function formatData(&$parts)
+    {
+        foreach ($parts as &$part)
+        {
+            if (is_array($part))
+            {
+                $this->formatData($part);
+            }
+            if (is_object($part))
+            {
+                // Catch toString objects, and datetime. Note Closure's will fall into here
+                if (method_exists($part, '__toString'))
+                {
+                    $part = $part->__toString();
+                } elseif ($part instanceof \DateTime)
+                {
+                    $part = $part->format(\DateTime::ISO8601);
+                } else
+                {
+                    throw new \Exception('Invalid object type used in JSON conversion. Must be instance of \DateTime or implement __toString()');
+                }
+            }
+        }
     }
 
     /**
