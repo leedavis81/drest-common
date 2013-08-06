@@ -59,7 +59,6 @@ class Xml extends AbstractRepresentation
         if (is_scalar($data))
         {
             $node->appendChild($this->xml->createTextNode($this->bool2str($data)));
-            return $node;
         }
 
         if (is_array($data)) {
@@ -69,7 +68,6 @@ class Xml extends AbstractRepresentation
                 $node->appendChild($this->convertArrayToXml($key, $value));
                 unset($data[$key]);
             }
-            return $node;
         }
 
         if (is_object($data))
@@ -78,15 +76,16 @@ class Xml extends AbstractRepresentation
             if (method_exists($data, '__toString'))
             {
                 $node->appendChild($this->xml->createTextNode($data->__toString()));
-                return $node;
             } elseif ($data instanceof \DateTime)
             {
                 $node->appendChild($this->xml->createTextNode($data->format(\DateTime::ISO8601)));
-                return $node;
+            } else
+            {
+                throw new \Exception('Invalid data type used in Array to XML conversion. Must be object of \DateTime or implement __toString()');
             }
         }
 
-        throw new \Exception('Invalid data type used in Array to XML conversion. Must be a scalar, array or object of \DateTime or that implements __toString()');
+        return $node;
     }
 
     /**
