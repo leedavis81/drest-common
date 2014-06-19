@@ -32,9 +32,12 @@ class Symfony2 extends AdapterAbstract
         if (($this->getResponse()->headers->count() === 0)) {
             return array();
         } else {
-            return array_map(function ($item) {
-                return implode(', ', $item);
-            }, $this->getResponse()->headers->all());
+            return array_map(
+                function ($item) {
+                    return implode(', ', $item);
+                },
+                $this->getResponse()->headers->all()
+            );
         }
     }
 

@@ -1,8 +1,6 @@
 <?php
 namespace DrestCommon\Response\Adapter;
 
-use DrestCommon\Response\ResponseException;
-
 class Guzzle extends AdapterAbstract
 {
     /**
@@ -36,10 +34,13 @@ class Guzzle extends AdapterAbstract
         if (($this->getResponse()->getHeaders()->count() === 0)) {
             return array();
         } else {
-            return array_map(function ($item) {
-                /* @var \Guzzle\Http\Message\Header\HeaderInterface $item */
-                return implode(', ', $item->toArray());
-            }, $this->getResponse()->getHeaders()->getAll());
+            return array_map(
+                function ($item) {
+                    /* @var \Guzzle\Http\Message\Header\HeaderInterface $item */
+                    return implode(', ', $item->toArray());
+                },
+                $this->getResponse()->getHeaders()->getAll()
+            );
         }
     }
 

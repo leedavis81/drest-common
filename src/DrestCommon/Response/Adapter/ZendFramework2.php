@@ -27,7 +27,9 @@ class ZendFramework2 extends AdapterAbstract
     public function getHttpHeader($name = null)
     {
         if ($name !== null) {
-            return ($this->getResponse()->getHeaders()->has($name)) ? $this->getResponse()->getHeaders()->get($name)->getFieldValue() : null;
+            return ($this->getResponse()->getHeaders()->has($name)) ? $this->getResponse()->getHeaders()->get(
+                $name
+            )->getFieldValue() : null;
         }
         return $this->getResponse()->getHeaders()->toArray();
     }

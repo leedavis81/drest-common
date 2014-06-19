@@ -100,7 +100,7 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        if ( !isset($offset)) {
+        if (!isset($offset)) {
             $this->data[] = $value;
             return true;
         }

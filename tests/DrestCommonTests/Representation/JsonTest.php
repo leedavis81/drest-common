@@ -1,10 +1,10 @@
 <?php
 namespace DrestCommonTests\Representation;
 
-use DrestCommon\ResultSet;
 use DrestCommon\Representation\Json;
-use DrestCommonTests\DrestCommonTestCase;
 use DrestCommon\Request\Request;
+use DrestCommon\ResultSet;
+use DrestCommonTests\DrestCommonTestCase;
 
 class JsonTest extends DrestCommonTestCase
 {
@@ -16,30 +16,32 @@ class JsonTest extends DrestCommonTestCase
 
     protected function getJsonArray()
     {
-        return array('user' => array(
-            'username' => 'leedavis81',
-            'email_address' => 'lee.davis@somewhere.com',
-            'profile' => array(
-                'id' => '1',
-                'title' => 'mr',
-                'firstname' => 'lee',
-                'lastname' => 'davis',
-            ),
-            'phone_numbers' => array(
-                array(
+        return array(
+            'user' => array(
+                'username' => 'leedavis81',
+                'email_address' => 'lee.davis@somewhere.com',
+                'profile' => array(
                     'id' => '1',
-                    'number' => '2087856458'
+                    'title' => 'mr',
+                    'firstname' => 'lee',
+                    'lastname' => 'davis',
                 ),
-                array(
-                    'id' => '2',
-                    'number' => '2087865978'
-                ),
-                array(
-                    'id' => '3',
-                    'number' => '2074855978'
+                'phone_numbers' => array(
+                    array(
+                        'id' => '1',
+                        'number' => '2087856458'
+                    ),
+                    array(
+                        'id' => '2',
+                        'number' => '2087865978'
+                    ),
+                    array(
+                        'id' => '3',
+                        'number' => '2074855978'
+                    )
                 )
             )
-        ));
+        );
     }
 
     public function testArrayToJsonMatches()
@@ -179,7 +181,10 @@ class JsonTest extends DrestCommonTestCase
      */
     public function testDataWithClosure()
     {
-        $data = array('closure' => function(){});
+        $data = array(
+            'closure' => function () {
+                }
+        );
         $representation = new Json();
         $representation->write(ResultSet::create($data, 'user'));
     }

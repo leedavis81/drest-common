@@ -3,7 +3,6 @@ namespace DrestCommonTests;
 
 
 use DrestCommon\ResultSet;
-use DrestCommonTests\DrestCommonTestCase;
 
 
 class ResultSetTest extends DrestCommonTestCase
@@ -40,8 +39,7 @@ class ResultSetTest extends DrestCommonTestCase
         $resultSet = ResultSet::create($partsArray, 'parts');
 
         $x = 0;
-        foreach ($resultSet as $part)
-        {
+        foreach ($resultSet as $part) {
             $this->assertEquals($partsArray[$x], $part);
             $x++;
         }

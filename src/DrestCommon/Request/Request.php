@@ -2,7 +2,6 @@
 namespace DrestCommon\Request;
 
 use DrestCommon\Request\Adapter;
-use DrestCommon\Request\RequestException;
 
 class Request
 {
@@ -51,21 +50,23 @@ class Request
             // Default to using symfony's request object
             /* @var \Symfony\Component\HttpFoundation\Request $defaultClass */
             $this->adapter = new Adapter\Symfony2($defaultClass::createFromGlobals());
-        } else if (is_object($request_object)) {
-            foreach ($adapterClasses as $adapterClass) {
-                /* @var Adapter\AdapterInterface $adapterClass */
-                $adaptedClassName = $adapterClass::getAdaptedClassName();
-                if ($request_object instanceof $adaptedClassName) {
-                    $adaptedObj = new $adapterClass($request_object);
-                    if ($adaptedObj instanceof Adapter\AdapterAbstract) {
-                        $this->adapter = $adaptedObj;
-                        return;
+        } else {
+            if (is_object($request_object)) {
+                foreach ($adapterClasses as $adapterClass) {
+                    /* @var Adapter\AdapterInterface $adapterClass */
+                    $adaptedClassName = $adapterClass::getAdaptedClassName();
+                    if ($request_object instanceof $adaptedClassName) {
+                        $adaptedObj = new $adapterClass($request_object);
+                        if ($adaptedObj instanceof Adapter\AdapterAbstract) {
+                            $this->adapter = $adaptedObj;
+                            return;
+                        }
                     }
                 }
+                throw RequestException::unknownAdapterForRequestObject($request_object);
+            } else {
+                throw RequestException::invalidRequestObjectPassed();
             }
-            throw RequestException::unknownAdapterForRequestObject($request_object);
-        } else {
-            throw RequestException::invalidRequestObjectPassed();
         }
     }
 

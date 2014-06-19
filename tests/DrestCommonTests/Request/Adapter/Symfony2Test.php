@@ -1,9 +1,9 @@
 <?php
 namespace DrestCommonTests\Request\Adapter;
 
-use DrestCommonTests\DrestCommonTestCase,
-    DrestCommon\Request\Request,
-    Symfony\Component\HttpFoundation;
+use DrestCommon\Request\Request;
+use DrestCommonTests\DrestCommonTestCase;
+use Symfony\Component\HttpFoundation;
 
 class Symfony2Test extends DrestCommonTestCase
 {

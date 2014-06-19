@@ -1,7 +1,6 @@
 <?php
 namespace DrestCommonTests\Representation;
 
-use DrestCommon\Representation\Json;
 use DrestCommon\Representation\Xml;
 use DrestCommon\Request\Request;
 use DrestCommon\ResultSet;
@@ -48,30 +47,32 @@ class XmlTest extends DrestCommonTestCase
 
     protected function getXmlArray()
     {
-        return array('user' => array(
-            'username' => 'leedavis81',
-            'email_address' => 'lee.davis@somewhere.com',
-            'profile' => array(
-                'id' => '1',
-                'title' => 'mr',
-                'firstname' => 'lee',
-                'lastname' => 'davis',
-            ),
-            'phone_numbers' => array(
-                array(
+        return array(
+            'user' => array(
+                'username' => 'leedavis81',
+                'email_address' => 'lee.davis@somewhere.com',
+                'profile' => array(
                     'id' => '1',
-                    'number' => '2087856458'
+                    'title' => 'mr',
+                    'firstname' => 'lee',
+                    'lastname' => 'davis',
                 ),
-                array(
-                    'id' => '2',
-                    'number' => '2087865978'
-                ),
-                array(
-                    'id' => '3',
-                    'number' => '2074855978'
+                'phone_numbers' => array(
+                    array(
+                        'id' => '1',
+                        'number' => '2087856458'
+                    ),
+                    array(
+                        'id' => '2',
+                        'number' => '2087865978'
+                    ),
+                    array(
+                        'id' => '3',
+                        'number' => '2074855978'
+                    )
                 )
             )
-        ));
+        );
     }
 
     public function testArrayToXmlMatches()
@@ -81,7 +82,10 @@ class XmlTest extends DrestCommonTestCase
         $resultSet = ResultSet::create($array['user'], 'user');
 
         $this->assertInstanceOf('DrestCommon\Representation\Xml', $representation);
-        $this->assertEquals($this->getXmlString(false), $this->removeXmlFormatting($representation->output($resultSet)));
+        $this->assertEquals(
+            $this->getXmlString(false),
+            $this->removeXmlFormatting($representation->output($resultSet))
+        );
     }
 
     public function testXmlToArrayMatches()
@@ -196,7 +200,10 @@ class XmlTest extends DrestCommonTestCase
         $representation = new Xml();
         $representation->write(ResultSet::create($data, 'user'));
 
-        $this->assertEquals($this->removeXmlFormatting($resp), $this->removeXmlFormatting($representation->__toString()));
+        $this->assertEquals(
+            $this->removeXmlFormatting($resp),
+            $this->removeXmlFormatting($representation->__toString())
+        );
     }
 
     /**
@@ -204,7 +211,10 @@ class XmlTest extends DrestCommonTestCase
      */
     public function testDataWithClosure()
     {
-        $data = array('closure' => function(){});
+        $data = array(
+            'closure' => function () {
+                }
+        );
         $representation = new Xml();
         $representation->write(ResultSet::create($data, 'user'));
     }
@@ -219,7 +229,10 @@ class XmlTest extends DrestCommonTestCase
         $representation = new Xml();
         $representation->write(ResultSet::create($data, 'user'));
 
-        $this->assertEquals($this->removeXmlFormatting($resp), $this->removeXmlFormatting($representation->__toString()));
+        $this->assertEquals(
+            $this->removeXmlFormatting($resp),
+            $this->removeXmlFormatting($representation->__toString())
+        );
     }
 
     /**

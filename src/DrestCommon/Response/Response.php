@@ -3,7 +3,6 @@ namespace DrestCommon\Response;
 
 
 use DrestCommon\Response\Adapter;
-use DrestCommon\Response\ResponseException;
 
 class Response
 {
@@ -170,21 +169,23 @@ class Response
             // Default to using symfony's request object
             /* @var \Symfony\Component\HttpFoundation\Response $defaultClass */
             $this->adapter = new Adapter\Symfony2($defaultClass::create());
-        } else if (is_object($response_object)) {
-            foreach ($adapterClasses as $adapterClass) {
-                /* @var Adapter\AdapterInterface $adapterClass */
-                $adaptedClassName = $adapterClass::getAdaptedClassName();
-                if ($response_object instanceof $adaptedClassName) {
-                    $adaptedObj = new $adapterClass($response_object);
-                    if ($adaptedObj instanceof Adapter\AdapterAbstract) {
-                        $this->adapter = $adaptedObj;
-                        return;
+        } else {
+            if (is_object($response_object)) {
+                foreach ($adapterClasses as $adapterClass) {
+                    /* @var Adapter\AdapterInterface $adapterClass */
+                    $adaptedClassName = $adapterClass::getAdaptedClassName();
+                    if ($response_object instanceof $adaptedClassName) {
+                        $adaptedObj = new $adapterClass($response_object);
+                        if ($adaptedObj instanceof Adapter\AdapterAbstract) {
+                            $this->adapter = $adaptedObj;
+                            return;
+                        }
                     }
                 }
+                throw ResponseException::unknownAdapterForResponseObject($response_object);
+            } else {
+                throw ResponseException::invalidResponseObjectPassed();
             }
-            throw ResponseException::unknownAdapterForResponseObject($response_object);
-        } else {
-            throw ResponseException::invalidResponseObjectPassed();
         }
     }
 

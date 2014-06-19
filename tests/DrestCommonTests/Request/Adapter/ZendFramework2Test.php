@@ -121,8 +121,7 @@ class ZendFramework2Test extends DrestCommonTestCase
         $zf2RequestObject->getHeaders()->clearHeaders();
         $this->assertEquals('', $request->getHeaders($varName));
 
-        if (isset($headers))
-        {
+        if (isset($headers)) {
             $zf2RequestObject->getHeaders()->addHeaders($headers);
         }
 

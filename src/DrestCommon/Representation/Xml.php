@@ -3,8 +3,6 @@
 namespace DrestCommon\Representation;
 
 use Doctrine\Common\Inflector\Inflector;
-use DrestCommon\Request\Request;
-use DrestCommon\Response\Response;
 use DrestCommon\ResultSet;
 
 /**
@@ -56,8 +54,7 @@ class Xml extends AbstractRepresentation
 
         $node = $this->xml->createElement($root_node);
 
-        if (is_scalar($data))
-        {
+        if (is_scalar($data)) {
             $node->appendChild($this->xml->createTextNode($this->bool2str($data)));
         }
 
@@ -70,17 +67,13 @@ class Xml extends AbstractRepresentation
             }
         }
 
-        if (is_object($data))
-        {
+        if (is_object($data)) {
             // Catch toString objects, and datetime. Note Closure's will fall into here
-            if (method_exists($data, '__toString'))
-            {
+            if (method_exists($data, '__toString')) {
                 $node->appendChild($this->xml->createTextNode($data->__toString()));
-            } elseif ($data instanceof \DateTime)
-            {
+            } elseif ($data instanceof \DateTime) {
                 $node->appendChild($this->xml->createTextNode($data->format(\DateTime::ISO8601)));
-            } else
-            {
+            } else {
                 throw new \Exception('Invalid data type used in Array to XML conversion. Must be object of \DateTime or implement __toString()');
             }
         }
