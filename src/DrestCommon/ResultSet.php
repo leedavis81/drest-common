@@ -29,7 +29,7 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
     {
         $keyName = preg_replace("/[^a-zA-Z0-9_\s]/", "", $keyName);
         if (!is_string($keyName)) {
-            throw new \Exception('arent key name in a result set object is invalid. Must be an alphanumeric string (underscores allowed)');
+            throw new \Exception('Key name in a result set object is invalid. Must be an alphanumeric string (underscores allowed)');
         }
         $this->data = $data;
         $this->keyName = $keyName;
@@ -47,14 +47,14 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
     /**
      * Create an instance of a results set object
      * @param array $data
-     * @param string $keyName
+     * @param string $keyName - defaults to "result"
      * @return ResultSet
      */
-    public static function create($data, $keyName)
+    public static function create($data, $keyName = null)
     {
+        $keyName ?: 'result';
         return new self($data, $keyName);
     }
-
 
     /**
      * @return int

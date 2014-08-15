@@ -2,16 +2,12 @@
 namespace DrestCommon\Representation;
 
 use DrestCommon\ResultSet;
-
 /**
- *
  * Server implementation of the JSON representation
  * @author Lee
- *
  */
 class Json extends AbstractRepresentation
 {
-
     /**
      * default error response document when handling an error
      * @var string $defaultErrorResponseClass
