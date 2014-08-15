@@ -52,7 +52,7 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
      */
     public static function create($data, $keyName = null)
     {
-        $keyName ?: 'result';
+        $keyName = $keyName ?: 'result';
         return new self($data, $keyName);
     }
 
