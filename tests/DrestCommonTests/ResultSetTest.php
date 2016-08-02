@@ -48,7 +48,8 @@ class ResultSetTest extends DrestCommonTestCase
         self::assertInstanceOf('ArrayIterator', $rsIterator);
         $rsIterator->rewind();
         self::assertEquals($partsArray[0], $rsIterator->current());
-        self::assertEquals($partsArray[1], $rsIterator->next());
+        $rsIterator->next();
+        self::assertEquals($partsArray[1], $rsIterator->current());
     }
 
     public function testResultSetCountable()
