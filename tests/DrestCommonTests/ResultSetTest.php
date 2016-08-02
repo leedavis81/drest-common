@@ -46,7 +46,7 @@ class ResultSetTest extends DrestCommonTestCase
 
         $rsIterator = $resultSet->getIterator();
         self::assertInstanceOf('ArrayIterator', $rsIterator);
-        reset($rsIterator);
+        $rsIterator->rewind();
         self::assertEquals($partsArray[0], current($rsIterator));
         self::assertEquals($partsArray[1], next($rsIterator));
     }
