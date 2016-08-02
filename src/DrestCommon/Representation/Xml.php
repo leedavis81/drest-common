@@ -113,7 +113,16 @@ class Xml extends AbstractRepresentation
         $instance->xml = new \DomDocument('1.0', 'UTF-8');
         $instance->xml->formatOutput = true;
 
-        if (!$instance->xml->loadXML($string)) {
+        try
+        {
+            $res = $instance->xml->loadXML($string);
+        } catch(\Exception $e)
+        {
+            throw new \Exception('Unable to load XML document from string', 0, $e);
+        }
+
+        if (!$res)
+        {
             throw new \Exception('Unable to load XML document from string');
         }
 

@@ -81,8 +81,8 @@ class XmlTest extends DrestCommonTestCase
         $array = $this->getXmlArray();
         $resultSet = ResultSet::create($array['user'], 'user');
 
-        $this->assertInstanceOf('DrestCommon\Representation\Xml', $representation);
-        $this->assertEquals(
+        self::assertInstanceOf('DrestCommon\Representation\Xml', $representation);
+        self::assertEquals(
             $this->getXmlString(false),
             $this->removeXmlFormatting($representation->output($resultSet))
         );
@@ -92,9 +92,9 @@ class XmlTest extends DrestCommonTestCase
     {
         $representation = Xml::createFromString($this->getXmlString());
 
-        $this->assertInstanceOf('DrestCommon\Representation\Xml', $representation);
+        self::assertInstanceOf('DrestCommon\Representation\Xml', $representation);
 
-        $this->assertEquals($this->getXmlArray(), $representation->toArray());
+        self::assertEquals($this->getXmlArray(), $representation->toArray());
     }
 
     public function testIsExpectedContentFromExtension()
@@ -106,14 +106,14 @@ class XmlTest extends DrestCommonTestCase
             'GET'
         );
         $request1 = Request::create($symRequest1);
-        $this->assertTrue($representation->isExpectedContent(array(2 => true), $request1));
+        self::assertTrue($representation->isExpectedContent(array(2 => true), $request1));
 
         $symRequest = \Symfony\Component\HttpFoundation\Request::create(
             '/users',
             'GET'
         );
         $request2 = Request::create($symRequest);
-        $this->assertFalse($representation->isExpectedContent(array(2 => true), $request2));
+        self::assertFalse($representation->isExpectedContent(array(2 => true), $request2));
     }
 
     public function testIsExpectedContentFromHeader()
@@ -130,7 +130,7 @@ class XmlTest extends DrestCommonTestCase
         );
 
         $request1 = Request::create($symRequest);
-        $this->assertTrue($representation->isExpectedContent(array(1 => 'Accept'), $request1));
+        self::assertTrue($representation->isExpectedContent(array(1 => 'Accept'), $request1));
 
         // By default sym requests are created with accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
         $symRequest = \Symfony\Component\HttpFoundation\Request::create(
@@ -143,7 +143,7 @@ class XmlTest extends DrestCommonTestCase
         );
 
         $request2 = Request::create($symRequest);
-        $this->assertFalse($representation->isExpectedContent(array(1 => 'Accept'), $request2));
+        self::assertFalse($representation->isExpectedContent(array(1 => 'Accept'), $request2));
     }
 
     public function testIsExpectedContentFromParams()
@@ -156,7 +156,7 @@ class XmlTest extends DrestCommonTestCase
             array('format' => 'xml')
         );
         $request1 = Request::create($symRequest);
-        $this->assertTrue($representation->isExpectedContent(array(3 => 'format'), $request1));
+        self::assertTrue($representation->isExpectedContent(array(3 => 'format'), $request1));
 
         $symRequest = \Symfony\Component\HttpFoundation\Request::create(
             '/users',
@@ -164,7 +164,7 @@ class XmlTest extends DrestCommonTestCase
         );
 
         $request2 = Request::create($symRequest);
-        $this->assertFalse($representation->isExpectedContent(array(3 => 'format'), $request2));
+        self::assertFalse($representation->isExpectedContent(array(3 => 'format'), $request2));
     }
 
     /**
@@ -200,7 +200,7 @@ class XmlTest extends DrestCommonTestCase
         $representation = new Xml();
         $representation->write(ResultSet::create($data, 'user'));
 
-        $this->assertEquals(
+        self::assertEquals(
             $this->removeXmlFormatting($resp),
             $this->removeXmlFormatting($representation->__toString())
         );
@@ -229,7 +229,7 @@ class XmlTest extends DrestCommonTestCase
         $representation = new Xml();
         $representation->write(ResultSet::create($data, 'user'));
 
-        $this->assertEquals(
+        self::assertEquals(
             $this->removeXmlFormatting($resp),
             $this->removeXmlFormatting($representation->__toString())
         );

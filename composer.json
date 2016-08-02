@@ -13,22 +13,21 @@
         }
     ],    
     "require": {
-        "php": ">=5.3.3",
-        "doctrine/inflector": "~1.0"
+        "php": "~5.4|~7.0",
+        "doctrine/inflector": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.1",
-        "symfony/http-foundation": "~2.0",
-        "zendframework/zend-http": "~2.1",
-        "guzzle/guzzle": "~3.6",
-        "satooshi/php-coveralls": "~0.6"
+        "phpunit/phpunit": "^4.1",
+        "symfony/http-foundation": "^2.0",
+        "zendframework/zend-http": "^2.1",
+        "guzzle/guzzle": "^3.6"
     },
     "autoload": {
         "psr-0": { "DrestCommon\\": "src/", "DrestCommonTests\\": "tests/"}
     },
     "suggest":{
-        "zendframework/zend-http": "(~2.1) If using the request / response adapters for Zend\\Http",
-        "symfony/http-foundation": "(~2.0) If using the request / response adapters for Symfony\\Component\\HttpFoundation",
-        "guzzle/guzzle": "(~3.6) If using the response adapter for Guzzle\\Http"
+        "zendframework/zend-http": "(^2.1) If using the request / response adapters for Zend\\Http",
+        "symfony/http-foundation": "(^2.0) If using the request / response adapters for Symfony\\Component\\HttpFoundation",
+        "guzzle/guzzle": "(^3.6) If using the response adapter for Guzzle\\Http"
     }
 }

@@ -11,14 +11,14 @@ class ResultSetTest extends DrestCommonTestCase
     public function testResultSetConstruction()
     {
         $resultSet = ResultSet::create(array('part1', 'part2', 'part3'), 'parts');
-        $this->assertInstanceOf('DrestCommon\ResultSet', $resultSet);
+        self::assertInstanceOf('DrestCommon\ResultSet', $resultSet);
 
         $refl = new \ReflectionClass('DrestCommon\ResultSet');
-        $this->assertTrue($refl->getConstructor()->isPrivate());
+        self::assertTrue($refl->getConstructor()->isPrivate());
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testResultSetThrowExceptionWithObjectKeyname()
     {
@@ -26,7 +26,7 @@ class ResultSetTest extends DrestCommonTestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testResultSetThrowExceptionWithArrayKeyname()
     {
@@ -40,15 +40,15 @@ class ResultSetTest extends DrestCommonTestCase
 
         $x = 0;
         foreach ($resultSet as $part) {
-            $this->assertEquals($partsArray[$x], $part);
+            self::assertEquals($partsArray[$x], $part);
             $x++;
         }
 
         $rsIterator = $resultSet->getIterator();
-        $this->assertInstanceOf('ArrayIterator', $rsIterator);
+        self::assertInstanceOf('ArrayIterator', $rsIterator);
         reset($rsIterator);
-        $this->assertEquals($partsArray[0], current($rsIterator));
-        $this->assertEquals($partsArray[1], next($rsIterator));
+        self::assertEquals($partsArray[0], current($rsIterator));
+        self::assertEquals($partsArray[1], next($rsIterator));
     }
 
     public function testResultSetCountable()
@@ -56,7 +56,7 @@ class ResultSetTest extends DrestCommonTestCase
         $partsArray = array('part1', 'part2', 'part3');
         $resultSet = ResultSet::create($partsArray, 'parts');
 
-        $this->assertCount(3, $resultSet);
+        self::assertCount(3, $resultSet);
     }
 
     public function testResultSetUnset()
@@ -67,8 +67,8 @@ class ResultSetTest extends DrestCommonTestCase
         unset($resultSet[999]);
 
         unset($resultSet[0]);
-        $this->assertCount(2, $resultSet);
-        $this->assertFalse(($resultSet[0] == 'part1'));
+        self::assertCount(2, $resultSet);
+        self::assertFalse(($resultSet[0] == 'part1'));
     }
 
     public function testResultSetSet()
@@ -77,12 +77,12 @@ class ResultSetTest extends DrestCommonTestCase
         $resultSet = ResultSet::create($partsArray, 'parts');
 
         $resultSet[] = 'part4';
-        $this->assertCount(4, $resultSet);
-        $this->assertTrue(($resultSet[3] == 'part4'));
+        self::assertCount(4, $resultSet);
+        self::assertTrue(($resultSet[3] == 'part4'));
 
         $resultSet[1] = 'newpart2';
-        $this->assertCount(4, $resultSet);
-        $this->assertTrue(($resultSet[1] == 'newpart2'));
+        self::assertCount(4, $resultSet);
+        self::assertTrue(($resultSet[1] == 'newpart2'));
     }
 
     public function testResultSetOffsetExists()
@@ -90,8 +90,8 @@ class ResultSetTest extends DrestCommonTestCase
         $partsArray = array('a' => 'part1', 'b' => 'part2', 'c' => 'part3');
         $resultSet = ResultSet::create($partsArray, 'parts');
 
-        $this->assertEquals('part2', $resultSet['b']);
+        self::assertEquals('part2', $resultSet['b']);
 
-        $this->assertTrue(isset($resultSet['a']));
+        self::assertTrue(isset($resultSet['a']));
     }
 }

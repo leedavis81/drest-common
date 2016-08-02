@@ -27,9 +27,14 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
      */
     private function __construct(array $data, $keyName)
     {
-        $keyName = preg_replace("/[^a-zA-Z0-9_\s]/", "", $keyName);
-        if (!is_string($keyName)) {
-            throw new \Exception('Key name in a result set object is invalid. Must be an alphanumeric string (underscores allowed)');
+        if (!is_string($keyName))
+        {
+            throw new \Exception('Key name should be a string');
+        }
+
+        $keyName = preg_replace("/[^a-zA-Z0-9_\s]/", '', $keyName);
+        if ($keyName === '') {
+            throw new \Exception('Key name is invalid. Must be an alphanumeric string only (underscores allowed)');
         }
         $this->data = $data;
         $this->keyName = $keyName;
