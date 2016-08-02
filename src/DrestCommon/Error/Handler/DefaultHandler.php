@@ -46,6 +46,9 @@ class DefaultHandler extends AbstractHandler
                 $this->response_code = Response::STATUS_CODE_404;
                 $error_message = $e->getMessage();
                 break;
+            case 'Drest\Service\Action\ActionException':
+                $error_message = $e->getMessage();
+                break;
             case 'DrestCommon\Representation\UnableToMatchRepresentationException';
                 $this->response_code = Response::STATUS_CODE_415;
                 $error_message = 'Requested media type is not supported';
