@@ -23,7 +23,7 @@ class Xml implements ResponseInterface
     }
 
     /**
-     * @return string $message
+     * @return array $message
      */
     public function getMessages()
     {
@@ -41,8 +41,11 @@ class Xml implements ResponseInterface
         $root = $xml->createElement('error');
         $xml->appendChild($root);
 
-        $node = $xml->createElement('message', $this->getMessages());
-        $root->appendChild($node);
+        foreach ($this->getMessages() as $message)
+        {
+            $node = $xml->createElement('message', $message);
+            $root->appendChild($node);
+        }
 
         return $xml->saveXML();
     }
