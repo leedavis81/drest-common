@@ -14,7 +14,7 @@ class Json implements ResponseInterface
     public $messages;
 
     /**
-     * @see \DrestCommon\Error\Response\ResponseInterface::setMessage()
+     * @param string $messages
      */
     public function setMessages($messages)
     {
@@ -24,7 +24,7 @@ class Json implements ResponseInterface
     /**
      * @return array $message
      */
-    public function getMessage()
+    public function getMessages()
     {
         return $this->messages;
     }

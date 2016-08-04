@@ -22,7 +22,7 @@ class Text implements ResponseInterface
     }
 
     /**
-     * @return string $message
+     * @return string
      */
     public function getMessages()
     {

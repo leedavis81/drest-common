@@ -10,12 +10,12 @@ class Xml implements ResponseInterface
 {
     /**
      * The error message
-     * @var string $message
+     * @var array $message
      */
     public $messages;
 
     /**
-     * @see \DrestCommon\Error\Response\ResponseInterface::setMessages()
+     * @param array $messages
      */
     public function setMessages($messages)
     {

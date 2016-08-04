@@ -17,7 +17,7 @@ interface ResponseInterface
 
     /**
      * Set an error messages - this can be represented in different ways on the object, but a setter must be present
-     * @param string $messages
+     * @param array $messages
      */
     public function setMessages($messages);
 
