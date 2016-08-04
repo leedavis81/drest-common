@@ -12,22 +12,22 @@ class Xml implements ResponseInterface
      * The error message
      * @var string $message
      */
-    public $message;
+    public $messages;
 
     /**
-     * @see \DrestCommon\Error\Response\ResponseInterface::setMessage()
+     * @see \DrestCommon\Error\Response\ResponseInterface::setMessages()
      */
-    public function setMessage($message)
+    public function setMessages($messages)
     {
-        $this->message = $message;
+        $this->messages = $messages;
     }
 
     /**
      * @return string $message
      */
-    public function getMessage()
+    public function getMessages()
     {
-        return $this->message;
+        return $this->messages;
     }
 
     /**
@@ -41,7 +41,7 @@ class Xml implements ResponseInterface
         $root = $xml->createElement('error');
         $xml->appendChild($root);
 
-        $node = $xml->createElement('message', $this->getMessage());
+        $node = $xml->createElement('message', $this->getMessages());
         $root->appendChild($node);
 
         return $xml->saveXML();
@@ -71,7 +71,7 @@ class Xml implements ResponseInterface
             throw new \Exception('Unable to load XML document from string');
         }
 
-        $instance->setMessage($xml->documentElement->textContent);
+        $instance->setMessages($xml->documentElement->textContent);
         return $instance;
     }
 }

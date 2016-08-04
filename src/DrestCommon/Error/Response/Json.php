@@ -11,22 +11,22 @@ class Json implements ResponseInterface
      * The error message
      * @var string $message
      */
-    public $message;
+    public $messages;
 
     /**
      * @see \DrestCommon\Error\Response\ResponseInterface::setMessage()
      */
-    public function setMessage($message)
+    public function setMessages($messages)
     {
-        $this->message = $message;
+        $this->messages = $messages;
     }
 
     /**
-     * @return the $message
+     * @return array $message
      */
     public function getMessage()
     {
-        return $this->message;
+        return $this->messages;
     }
 
     /**
@@ -35,7 +35,7 @@ class Json implements ResponseInterface
     public function render()
     {
         return json_encode(
-            array('error' => $this->message)
+            array('error' => $this->messages)
         );
     }
 
@@ -57,7 +57,7 @@ class Json implements ResponseInterface
         $result = json_decode($string, true);
         $instance = new self();
         if (isset($result['error'])) {
-            $instance->setMessage($result['error']);
+            $instance->setMessages($result['error']);
         }
         return $instance;
     }

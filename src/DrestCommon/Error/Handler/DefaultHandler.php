@@ -16,48 +16,75 @@ class DefaultHandler extends AbstractHandler
 
     public function error(\Exception $e, $defaultResponseCode = 500, ResponseInterface &$errorDocument)
     {
-        switch (get_class($e)) {
-            /**
-             * results exceptions
-             * ORM\NonUniqueResultException
-             * ORM\NoResultException
-             * ORM\OptimisticLockException
-             * ORM\PessimisticLockException
-             * ORM\TransactionRequiredException
-             * ORM\UnexpectedResultException
-             */
-            case 'Doctrine\ORM\NonUniqueResultException':
-                $this->response_code = Response::STATUS_CODE_300;
-                $error_message = 'Multiple resources available';
-                break;
-            case 'Doctrine\ORM\NoResultException':
-                $this->response_code = Response::STATUS_CODE_404;
-                $error_message = 'No resource available';
-                break;
-            /**
-             * configuration / request exception
-             * Drest\Route\MultipleRoutesException
-             */
-            case 'Drest\Query\InvalidExposeFieldsException':
-                $this->response_code = Response::STATUS_CODE_400;
-                $error_message = $e->getMessage();
-                break;
-            case 'Drest\Route\NoMatchException':
-                $this->response_code = Response::STATUS_CODE_404;
-                $error_message = $e->getMessage();
-                break;
-            case 'Drest\Service\Action\ActionException':
-                $error_message = $e->getMessage();
-                break;
-            case 'DrestCommon\Representation\UnableToMatchRepresentationException';
-                $this->response_code = Response::STATUS_CODE_415;
-                $error_message = 'Requested media type is not supported';
-                break;
-            default:
-                $error_message = 'An unknown error occured';
-                $this->response_code = $defaultResponseCode;
-                break;
+        if (!$this->processException($e))
+        {
+            $this->setResponseCode($defaultResponseCode);
+            $this->addErrorMessage('An unknown error occurred');
         }
-        $errorDocument->setMessage($error_message);
+
+        $errorDocument->setMessages($this->getErrorMessages());
+    }
+
+    /**
+     * Process an application exception
+     * @param \Exception $e
+     * @return string
+     */
+    private function processException(\Exception $e)
+    {
+        /**
+         * results exceptions
+         * ORM\NonUniqueResultException
+         * ORM\NoResultException
+         * ORM\OptimisticLockException
+         * ORM\PessimisticLockException
+         * ORM\TransactionRequiredException
+         * ORM\UnexpectedResultException
+         */
+        if ($e instanceof \Doctrine\ORM\NonUniqueResultException)
+        {
+            $this->setResponseCode(Response::STATUS_CODE_300);
+            $this->addErrorMessage('Multiple resources available');
+            return true;
+        }
+
+        if ($e instanceof \Doctrine\ORM\NoResultException)
+        {
+            $this->setResponseCode(Response::STATUS_CODE_404);
+            $this->addErrorMessage('No resource available');
+            return true;
+        }
+
+        /**
+         * configuration / request exception
+         * Drest\Route\MultipleRoutesException
+         */
+        if ($e instanceof \Drest\Query\InvalidExposeFieldsException)
+        {
+            $this->setResponseCode(Response::STATUS_CODE_400);
+            $this->addErrorMessage($e->getMessage());
+            return true;
+        }
+
+        if ($e instanceof \Drest\Route\NoMatchException)
+        {
+            $this->setResponseCode(Response::STATUS_CODE_404);
+            $this->addErrorMessage($e->getMessage());
+            return true;
+        }
+
+        if ($e instanceof \Drest\Service\Action\ActionException)
+        {
+            $this->addErrorMessage($e->getMessage());
+            return true;
+        }
+
+        if ($e instanceof \DrestCommon\Representation\UnableToMatchRepresentationException)
+        {
+            $this->setResponseCode(Response::STATUS_CODE_415);
+            $this->addErrorMessage('Requested media type is not supported');
+            return true;
+        }
+        return false;
     }
 }

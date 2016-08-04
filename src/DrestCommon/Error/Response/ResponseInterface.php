@@ -16,10 +16,10 @@ interface ResponseInterface
     public function render();
 
     /**
-     * Set an error message - this can be represented in different ways on the object, but a setter must be present
-     * @param string $message
+     * Set an error messages - this can be represented in different ways on the object, but a setter must be present
+     * @param string $messages
      */
-    public function setMessage($message);
+    public function setMessages($messages);
 
     /**
      * Get the content type to be used when then error document is rendered

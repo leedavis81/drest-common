@@ -11,22 +11,22 @@ class Text implements ResponseInterface
      * The error message
      * @var string $message
      */
-    public $message;
+    public $messages;
 
     /**
      * @see \DrestCommon\Error\Response.ResponseInterface::setMessage()
      */
-    public function setMessage($message)
+    public function setMessages($messages)
     {
-        $this->message = $message;
+        $this->messages = $messages;
     }
 
     /**
      * @return string $message
      */
-    public function getMessage()
+    public function getMessages()
     {
-        return $this->message;
+        return $this->messages;
     }
 
     /**
@@ -34,7 +34,7 @@ class Text implements ResponseInterface
      */
     public function render()
     {
-        return 'error: ' . $this->message;
+        return 'error: ' . implode(', ', $this->messages);
     }
 
     /**
@@ -54,7 +54,7 @@ class Text implements ResponseInterface
     {
         $instance = new self();
         $parts = explode(':', $string);
-        $instance->setMessage($parts[1]);
+        $instance->setMessages(explode(', ', $parts[1]));
         return $instance;
     }
 }
