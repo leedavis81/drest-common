@@ -235,6 +235,15 @@ class XmlTest extends DrestCommonTestCase
         );
     }
 
+
+    public function testDataWithNoKeyName()
+    {
+        $data = array(1, 2, 3);
+
+        $representation = new Xml();
+        $representation->write(ResultSet::create($data));
+    }
+
     /**
      * @expectedException \Exception
      */

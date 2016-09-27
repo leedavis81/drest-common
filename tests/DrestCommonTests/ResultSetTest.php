@@ -2,6 +2,7 @@
 namespace DrestCommonTests;
 
 
+use DrestCommon\Representation\Xml;
 use DrestCommon\ResultSet;
 
 
@@ -94,5 +95,10 @@ class ResultSetTest extends DrestCommonTestCase
         self::assertEquals('part2', $resultSet['b']);
 
         self::assertTrue(isset($resultSet['a']));
+    }
+
+    public function testCreatingResultSetWithNullKeyname()
+    {
+        $resultSet = ResultSet::create([1, 2, 3]);
     }
 }

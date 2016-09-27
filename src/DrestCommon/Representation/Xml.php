@@ -35,7 +35,15 @@ class Xml extends AbstractRepresentation
         $this->xml->formatOutput = true;
 
         $dataArray = $data->toArray();
-        $this->xml->appendChild($this->convertArrayToXml(key($dataArray), $dataArray[key($dataArray)]));
+        if (key($dataArray) === 0)
+        {
+            // If there is no key, we need to use a default
+            $this->xml->appendChild($this->convertArrayToXml('result', $dataArray));
+        } else
+        {
+            $this->xml->appendChild($this->convertArrayToXml(key($dataArray), $dataArray[key($dataArray)]));
+        }
+        
         $this->data = $this->xml->saveXML();
     }
 

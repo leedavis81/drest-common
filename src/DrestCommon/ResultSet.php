@@ -25,17 +25,20 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
      * @param string $keyName
      * @throws \Exception
      */
-    private function __construct(array $data, $keyName)
+    private function __construct(array $data, $keyName = null)
     {
-        if (!is_string($keyName))
+        if ($keyName !== null)
         {
-            throw new \Exception('Key name should be a string');
+            if (!is_string($keyName))
+            {
+                throw new \Exception('Key name should be a string');
+            }
+            $keyName = preg_replace("/[^a-zA-Z0-9_\s]/", '', $keyName);
+            if ($keyName === '') {
+                throw new \Exception('Key name is invalid. Must be an alphanumeric string only (underscores allowed)');
+            }
         }
 
-        $keyName = preg_replace("/[^a-zA-Z0-9_\s]/", '', $keyName);
-        if ($keyName === '') {
-            throw new \Exception('Key name is invalid. Must be an alphanumeric string only (underscores allowed)');
-        }
         $this->data = $data;
         $this->keyName = $keyName;
     }
@@ -46,6 +49,10 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
      */
     public function toArray()
     {
+        if (is_null($this->keyName))
+        {
+            return $this->data;
+        }
         return array($this->keyName => $this->data);
     }
 
@@ -57,7 +64,6 @@ class ResultSet implements \Countable, \IteratorAggregate, \ArrayAccess
      */
     public static function create($data, $keyName = null)
     {
-        $keyName = $keyName ?: 'result';
         return new self($data, $keyName);
     }
 
