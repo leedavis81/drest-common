@@ -34,17 +34,23 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
     /**
      * update the representation to match the data contained within a client data object
      * - This will call the write method that will store its representation in the $data array
+     * @param InterfaceRepresentation $object - the representation object
+     * @param string $withKey - optional key to wrap the object in
      */
-    public function update($object)
+    public function update($object, $withKey = null)
     {
         if (is_object($object)) {
             $objectVars = get_object_vars($object);
             $this->repIntoArray($objectVars);
 
+            $keyName = is_null($withKey)
+                ? strtolower(implode('', array_slice(explode('\\', get_class($object)), -1)))
+                : $withKey;
+
             $this->write(
                 ResultSet::create(
                     $objectVars,
-                    strtolower(implode('', array_slice(explode('\\', get_class($object)), -1)))
+                    $keyName
                 )
             );
         }
