@@ -249,15 +249,18 @@ class Response
 
     /**
      * Set the status code
-     * @param integer $code - must reflect one of the STATUS_CODE_* constants on this class
+     * @param integer $code
      * @throws ResponseException
      */
     public function setStatusCode($code)
     {
-        if (!array_key_exists($code, self::$statusPhrases)) {
+        if (!is_numeric($code) || strlen($code) !== 3) {
             throw ResponseException::invalidHttpStatusCode($code);
         }
-        $this->adapter->setStatusCode($code, self::$statusPhrases[$code]);
+        $text = array_key_exists($code, self::$statusPhrases)
+            ? self::$statusPhrases[$code]
+            : 'Custom';
+        $this->adapter->setStatusCode($code, $text);
     }
 
     /**
