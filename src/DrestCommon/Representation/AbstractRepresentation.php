@@ -43,14 +43,10 @@ abstract class AbstractRepresentation implements InterfaceRepresentation
             $objectVars = get_object_vars($object);
             $this->repIntoArray($objectVars);
 
-            $keyName = is_null($withKey)
-                ? strtolower(implode('', array_slice(explode('\\', get_class($object)), -1)))
-                : $withKey;
-
             $this->write(
                 ResultSet::create(
                     $objectVars,
-                    $keyName
+                    $withKey
                 )
             );
         }

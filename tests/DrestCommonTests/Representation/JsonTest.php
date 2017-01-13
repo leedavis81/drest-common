@@ -72,7 +72,7 @@ class JsonTest extends DrestCommonTestCase
         $obj->username = 'billybob';
         $obj->email_address = 'billybob@somewhere.com';
         $obj->phone_numbers = array('02045485658', '02096589654');
-        $representation->update($obj);
+        $representation->update($obj, 'stdclass');
 
         $exp = '{"stdclass":{"username":"billybob","email_address":"billybob@somewhere.com","phone_numbers":["02045485658","02096589654"]}}';
 
